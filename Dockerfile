@@ -1,7 +1,6 @@
 FROM python:3.9
 
 RUN pip install -U pip
-
 RUN pip install mecab-python3
 RUN pip install unidic-lite
 
