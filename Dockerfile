@@ -1,8 +1,13 @@
 FROM python:3.9
 
 RUN pip install -U pip
-RUN pip install mecab-python3
-RUN pip install unidic-lite
+
+RUN apt-get update \
+  && apt-get install -y mecab \
+  && apt-get install -y mecab-ipadic \
+  && apt-get install -y libmecab-dev \
+  && apt-get install -y mecab-ipadic-utf8 \
+  && apt-get install -y swig
 
 WORKDIR /bot
 COPY requirements.txt /bot/
