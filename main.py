@@ -7,7 +7,8 @@ from keep_alive import keep_alive
 
 client = discord.Client(intents=discord.Intents.all())
 # client = discord.Client(intents=discord.Intents.default())
-tagger = MeCab.Tagger()
+# tagger = MeCab.Tagger()
+tagger = MeCab.Tagger('-r /etc/mecabrc')
 
 @client.event
 async def on_ready():
