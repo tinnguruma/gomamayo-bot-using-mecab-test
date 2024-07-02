@@ -1,8 +1,6 @@
-import os
-import re
-import time
 import discord
-import MeCab
+import os
+from keep_alive import keep_alive
 
 client = discord.Client(intents=discord.Intents.default())
 
@@ -16,4 +14,6 @@ async def on_message(message):
     await message.add_reaction(emoji)
 
 TOKEN = os.getenv("DISCORD_TOKEN")
+# Web サーバの立ち上げ
+keep_alive()
 client.run(TOKEN)
