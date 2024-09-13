@@ -14,7 +14,7 @@ client = discord.Client(intents=discord.Intents.all())
 # tagger = MeCab.Tagger()
 tagger = MeCab.Tagger("-r /etc/mecabrc")
 
-pytesseract.pytesseract.tesseract_cmd = r'path_to_your_tesseract_executable'
+pytesseract.pytesseract.tesseract_cmd = r"path_to_your_tesseract_executable"
 tessdata_dir_config = '--tessdata-dir "/usr/share/tesseract-ocr/4.00/tessdata"'
 
 
@@ -52,7 +52,9 @@ async def on_message(message):
                 )
 
                 # OCR結果とmessage.contentを結合
-                txt = "OCR_text------ \n" + ocr_text + "------------ \n"
+                txt = (
+                    "OCR_text------ \n" + "".join(ocr_text.split()) + "------------ \n"
+                )
     else:
         pass
 
