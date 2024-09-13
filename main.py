@@ -59,7 +59,7 @@ async def on_message(message):
 
                 # OCR結果とmessage.contentを結合
                 txt = (
-                    "OCR_text------ \n" + "".join(ocr_text.split()) + "------------ \n"
+                    "OCR_text------ \n" + "".join(ocr_text.split()) + "\n------------ \n"
                 )
                 log_master += txt
     else:
@@ -77,13 +77,13 @@ async def on_message(message):
 
         if re.search(r"[A-z]", txt) is not None:
             txt = re.sub(r"[A-z]", "", txt)
-            log_master += "\n" + "英語は省かれました"
+            log_master += "英語は省かれました/"
         if re.search(r"[0-9]", txt) is not None:
             txt = re.sub(r"[0-9]", "", txt)
-            log_master += "\n" + "数字は省かれました。"
+            log_master += "数字は省かれました/"
         if re.search(r"[-/:-@[-´{-~！？!?\.、\(\)\（\）。・\n…]", txt) is not None:
             txt = re.sub(r"[ -/:-@[-´{-~！？!?\.、。・\n…]", "", txt)
-            log_master += "\n" + "一部記号が省かれました。"
+            log_master += "一部記号が省かれました"
 
         arr = tagger.parse(txt).splitlines()
         beforeSound, beforeSound2 = 0, 0
