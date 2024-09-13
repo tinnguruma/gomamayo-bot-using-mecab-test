@@ -40,6 +40,9 @@ async def on_message(message):
     txt = message.content
     counter = 0
     log_master = "[" + txt + "]" + "\n"
+    If_log = False
+    if txt.startswith("log"):
+        If_log = True
 
     # 画像判別
     if message.attachments:
@@ -58,7 +61,7 @@ async def on_message(message):
                 txt = (
                     "OCR_text------ \n" + "".join(ocr_text.split()) + "------------ \n"
                 )
-                print(txt)
+                log_master += txt
     else:
         pass
 
@@ -111,7 +114,7 @@ async def on_message(message):
         logging.info(txt)
         logging.info(log_master)
 
-        if txt.startswith("log"):
+        if If_log:
             await message.channel.send(log_master)
 
 
