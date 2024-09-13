@@ -14,7 +14,7 @@ client = discord.Client(intents=discord.Intents.all())
 # tagger = MeCab.Tagger()
 tagger = MeCab.Tagger("-r /etc/mecabrc")
 
-pytesseract.pytesseract.tesseract_cmd = r"path_to_your_tesseract_executable"
+pytesseract.pytesseract.tesseract_cmd = r"/usr/bin/tesseract"
 tessdata_dir_config = '--tessdata-dir "/usr/share/tesseract-ocr/4.00/tessdata"'
 
 
@@ -103,6 +103,9 @@ async def on_message(message):
             end_time = time.time()
             elapsed_time = round(end_time - start_time, 5)
             await message.channel.send(f"処理時間: {elapsed_time}秒")
+
+        print(txt)
+        print(log_master)
 
         if txt.startswith("log"):
             await message.channel.send(log_master)
