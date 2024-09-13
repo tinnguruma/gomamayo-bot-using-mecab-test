@@ -2,13 +2,14 @@ FROM python:3.9
 
 RUN pip install -U pip
 
-RUN apt-get update \
+RUN apt-get clean \
+  && apt-get update \
   && apt-get install -y mecab \
   && apt-get install -y mecab-ipadic \
   && apt-get install -y libmecab-dev \
   && apt-get install -y mecab-ipadic-utf8 \
   && apt-get install -y swig \
-  && apt-get install tesseract-ocr
+  && apt-get install -y tesseract-ocr
 
 # 任意の場所に学習データを配置
 RUN mkdir -p /usr/share/tesseract-ocr/4.00/tessdata
