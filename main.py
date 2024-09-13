@@ -8,6 +8,9 @@ from PIL import Image
 import requests
 from io import BytesIO
 from keep_alive import keep_alive
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 client = discord.Client(intents=discord.Intents.all())
 # client = discord.Client(intents=discord.Intents.default())
@@ -55,6 +58,7 @@ async def on_message(message):
                 txt = (
                     "OCR_text------ \n" + "".join(ocr_text.split()) + "------------ \n"
                 )
+                print(txt)
     else:
         pass
 
@@ -104,8 +108,8 @@ async def on_message(message):
             elapsed_time = round(end_time - start_time, 5)
             await message.channel.send(f"処理時間: {elapsed_time}秒")
 
-        print(txt)
-        print(log_master)
+        logging.info(txt)
+        logging.info(log_master)
 
         if txt.startswith("log"):
             await message.channel.send(log_master)
