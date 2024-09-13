@@ -36,7 +36,7 @@ async def on_message(message):
     start_time = time.time()
     txt = message.content
     counter = 0
-    log_master = ""
+    log_master = "[" + txt + "]" + "\n"
 
     # 画像判別
     if message.attachments:
