@@ -59,7 +59,9 @@ async def on_message(message):
 
                 # OCR結果とmessage.contentを結合
                 txt = (
-                    "OCR_text------ \n" + "".join(ocr_text.split()) + "\n------------ \n"
+                    "OCR_text------ \n"
+                    + "".join(ocr_text.split())
+                    + "\n------------ \n"
                 )
                 log_master += txt
     else:
@@ -93,17 +95,18 @@ async def on_message(message):
         for item in arr:
             try:
                 sound = str(item.split(",")[-2])
-                log_master += sound + "/"
-                if beforeSound != 0 and beforeSound == sound[0]:
-                    print("ゴママヨ！？[" + sound[0])
-                    await message.channel.send("ゴママヨ！？[" + sound[0] + "]")
-                    counter += 1
-                if beforeSound2 != 0 and (beforeSound2 + beforeSound) == sound[:2]:
-                    print("2次ゴママヨ！？[" + sound[:2])
-                    await message.channel.send("2次ゴママヨ！？[" + sound[:2] + "]")
-                    counter += 1
-                beforeSound = str(sound[-1])
-                beforeSound2 = str(sound[-2]) if len(sound) >= 2 else "0"
+                if not sound == "*":
+                    log_master += sound + "/"
+                    if beforeSound != 0 and beforeSound == sound[0]:
+                        print("ゴママヨ！？[" + sound[0])
+                        await message.channel.send("ゴママヨ！？[" + sound[0] + "]")
+                        counter += 1
+                    if beforeSound2 != 0 and (beforeSound2 + beforeSound) == sound[:2]:
+                        print("2次ゴママヨ！？[" + sound[:2])
+                        await message.channel.send("2次ゴママヨ！？[" + sound[:2] + "]")
+                        counter += 1
+                    beforeSound = str(sound[-1])
+                    beforeSound2 = str(sound[-2]) if len(sound) >= 2 else "0"
             except:
                 pass
         if counter > 0:
