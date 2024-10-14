@@ -106,19 +106,16 @@ async def on_message(message):
                         logging.info(beforeWord[(-(n + 1)) :])
                         logging.info(sound[: (n + 1)])
 
-                        if (
-                            beforeWord != ""
-                            and beforeWord[(-(n + 1)) :] == sound[: (n + 1)]
-                        ):
+                        if beforeWord[(-(n + 1)) :] == sound[: (n + 1)]:
                             if n == 0:
                                 logging.info("gomamayo")
                                 await message.channel.send(
-                                    "ゴママヨ！？[" + sound[: n + 1] + "]"
+                                    f"ゴママヨ！？[{sound[: n + 1]}]"
                                 )
                             else:
-                                logging.info("gomamayo" + n)
+                                logging.info(f"gomamayo{n}")
                                 await message.channel.send(
-                                    (n + 1) + "次ゴママヨ！？[" + sound[: n + 1] + "]"
+                                    f"{n+1}次ゴママヨ！？[{sound[: n + 1]}]"
                                 )
                             counter += 1
 
