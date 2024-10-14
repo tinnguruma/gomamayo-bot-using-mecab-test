@@ -94,7 +94,7 @@ async def on_message(message):
 
         for item in arr:
             try:
-                sound = str(item.split(",")[-2])
+                sound = str(item.split(",")[-2]).strip()
                 if re.search(r"[ァ-ヶー]", sound):
                     log_master += sound + "/"
 
@@ -107,7 +107,7 @@ async def on_message(message):
                         logging.info(sound[: (n + 1)])
 
                         if (
-                            beforeWord != 0
+                            beforeWord != ""
                             and beforeWord[(-(n + 1)) :] == sound[: (n + 1)]
                         ):
                             if n == 0:
@@ -121,7 +121,7 @@ async def on_message(message):
                                     (n + 1) + "次ゴママヨ！？[" + sound[: n + 1] + "]"
                                 )
                             counter += 1
-                    
+
                     beforeWord = sound
                     # if beforeSound != 0 and beforeSound == sound[0]:
                     #     print("ゴママヨ！？[" + sound[0])
