@@ -47,7 +47,7 @@ async def on_message(message):
     # 画像判別
     if message.attachments:
         for attachment in message.attachments:
-            if attachment.filename.endswith(("png", "jpg", "jpeg", "gif")):
+            if attachment.filename.endswith(("png", "jpg", "jpeg")):
                 print("画像だよ:", attachment.url)
 
                 # 画像をダウンロードしてOCRを実行
@@ -88,25 +88,36 @@ async def on_message(message):
             log_master += "一部記号が省かれました"
 
         arr = tagger.parse(txt).splitlines()
-        beforeSound, beforeSound2 = 0, 0
+        beforeWord = 0
 
         log_master += "\n"
 
         for item in arr:
             try:
                 sound = str(item.split(",")[-2])
-                if re.search(r'[ァ-ヶー]', sound):
+                if re.search(r"[ァ-ヶー]", sound):
                     log_master += sound + "/"
-                    if beforeSound != 0 and beforeSound == sound[0]:
-                        print("ゴママヨ！？[" + sound[0])
-                        await message.channel.send("ゴママヨ！？[" + sound[0] + "]")
-                        counter += 1
-                    if beforeSound2 != 0 and (beforeSound2 + beforeSound) == sound[:2]:
-                        print("2次ゴママヨ！？[" + sound[:2])
-                        await message.channel.send("2次ゴママヨ！？[" + sound[:2] + "]")
-                        counter += 1
-                    beforeSound = str(sound[-1])
-                    beforeSound2 = str(sound[-2]) if len(sound) >= 2 else "0"
+
+                    for n in range(len(sound)):
+                        if beforeWord != 0 and beforeWord[(-n + 1) :] == sound[: n + 1]:
+                            if n == 0:
+                                await message.channel.send(
+                                    "ゴママヨ！？[" + sound[: n + 1] + "]"
+                                )
+                            else:
+                                await message.channel.send(
+                                    (n + 1) + "次ゴママヨ！？[" + sound[: n + 1] + "]"
+                                )
+                            counter += 1
+                    # if beforeSound != 0 and beforeSound == sound[0]:
+                    #     print("ゴママヨ！？[" + sound[0])
+                    #     await message.channel.send("ゴママヨ！？[" + sound[0] + "]")
+                    #     counter += 1
+                    # if beforeSound2 != 0 and (beforeSound2 + beforeSound) == sound[:2]:
+                    #     print("2次ゴママヨ！？[" + sound[:2])
+                    #     await message.channel.send("2次ゴママヨ！？[" + sound[:2] + "]")
+                    #     counter += 1
+                    beforeWord = sound
             except:
                 pass
         if counter > 0:
