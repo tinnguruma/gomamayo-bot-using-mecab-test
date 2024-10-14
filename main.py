@@ -99,7 +99,10 @@ async def on_message(message):
                     log_master += sound + "/"
 
                     for n in range(len(sound)):
-                        if beforeWord != 0 and beforeWord[(-n + 1) :] == sound[: n + 1]:
+                        if (
+                            beforeWord != 0
+                            and beforeWord[(-(n + 1)) :] == sound[: n + 1]
+                        ):
                             if n == 0:
                                 await message.channel.send(
                                     "ゴママヨ！？[" + sound[: n + 1] + "]"
