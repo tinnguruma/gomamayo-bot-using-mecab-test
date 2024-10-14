@@ -100,20 +100,15 @@ async def on_message(message):
 
                     for n in range(len(sound)):
 
-                        logging.info(n)
-                        logging.info(beforeWord)
-                        logging.info(sound)
-                        logging.info(beforeWord[(-(n + 1)) :])
-                        logging.info(sound[: (n + 1)])
+                        # logging.info(beforeWord[(-(n + 1)) :])
+                        # logging.info(sound[: (n + 1)])
 
                         if beforeWord[(-(n + 1)) :] == sound[: (n + 1)]:
                             if n == 0:
-                                logging.info("gomamayo")
                                 await message.channel.send(
                                     f"ゴママヨ！？[{sound[: n + 1]}]"
                                 )
                             else:
-                                logging.info(f"gomamayo{n}")
                                 await message.channel.send(
                                     f"{n+1}次ゴママヨ！？[{sound[: n + 1]}]"
                                 )
@@ -135,7 +130,6 @@ async def on_message(message):
             elapsed_time = round(end_time - start_time, 5)
             await message.channel.send(f"処理時間: {elapsed_time}秒")
 
-        logging.info(txt)
         logging.info(log_master)
 
         if If_log:
