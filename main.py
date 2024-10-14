@@ -88,7 +88,7 @@ async def on_message(message):
             log_master += "一部記号が省かれました"
 
         arr = tagger.parse(txt).splitlines()
-        beforeWord = 0
+        beforeWord = ""
 
         log_master += "\n"
 
@@ -105,19 +105,24 @@ async def on_message(message):
                         logging.info(sound)
                         logging.info(beforeWord[(-(n + 1)) :])
                         logging.info(sound[: (n + 1)])
+
                         if (
                             beforeWord != 0
                             and beforeWord[(-(n + 1)) :] == sound[: (n + 1)]
                         ):
                             if n == 0:
+                                logging.info("gomamayo")
                                 await message.channel.send(
                                     "ゴママヨ！？[" + sound[: n + 1] + "]"
                                 )
                             else:
+                                logging.info("gomamayo" + n)
                                 await message.channel.send(
                                     (n + 1) + "次ゴママヨ！？[" + sound[: n + 1] + "]"
                                 )
                             counter += 1
+                    
+                    beforeWord = sound
                     # if beforeSound != 0 and beforeSound == sound[0]:
                     #     print("ゴママヨ！？[" + sound[0])
                     #     await message.channel.send("ゴママヨ！？[" + sound[0] + "]")
@@ -126,7 +131,6 @@ async def on_message(message):
                     #     print("2次ゴママヨ！？[" + sound[:2])
                     #     await message.channel.send("2次ゴママヨ！？[" + sound[:2] + "]")
                     #     counter += 1
-                    beforeWord = sound
             except:
                 pass
         if counter > 0:
